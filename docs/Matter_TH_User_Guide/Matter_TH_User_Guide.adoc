@@ -2041,6 +2041,7 @@ WARNING: Currently, WIFI_SSID with special characters or empty spaces is not sup
 * *$BLE_INTERFACE_ID*: Interface ID for BLE interface (e.g., 0 for default, which usually works)
 * *$THREAD_DATASET_HEX*: Thread operational dataset as a hex string (e.g., output of dataset active -x in OpenThread CLI on an existing end-device
 
+[[common-steps]]
 ===== Common Steps
 
 |===
@@ -2106,6 +2107,15 @@ Execute the below command in the docker for the BLE+Thread pairing:
 |`rm -f admin_storage.json && python3 python_testing/scripts/sdk/TC_RR_1_1.py --discriminator $DISCRIMINATOR --passcode $SETUP_PASSCODE --commissioning-method ble-thread --paa-trust-store-path /paa_roots --storage-path admin_storage.json --thread-dataset-hex $THREAD_DATASET_HEX --ble-interface-id $BLE_INTERFACE_ID`
 |===
 
+===== For CNET Tests
+
+CNET (Network Commissioning cluster) test cases manage Wi-Fi networks directly through the host's `wpa_supplicant` control interface, so the `chip-cert-bins` container needs an additional volume mapping for `/var/run/wpa_supplicant` on top of the <<common-steps,Common Steps>> command:
+
+|===
+|`docker run -v $PATH_TO_PAA_ROOTS:/paa_roots -v /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket -v /home/ubuntu/certification-tool/backend/test_collections/matter/sdk_tests/sdk_checkout/python_testing:/root/python_testing -v $(pwd):/launch_dir -v /var/run/wpa_supplicant:/var/run/wpa_supplicant --privileged --network host -it connectedhomeip/chip-cert-bins:<SDK SHA RECOMMENDED>`
+|===
+
+NOTE: Without this mapping, CNET test cases will fail to reach `wpa_supplicant` and cannot add, update, or remove Wi-Fi networks.
 
 ===== Post-Test Steps
 
