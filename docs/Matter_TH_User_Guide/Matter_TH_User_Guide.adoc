@@ -168,6 +168,7 @@ endif::[]
                                                                      * Documented the `--prompt-timeout` CLI flag for `run-tests`.
 | 71          | 03-Sep-2026  | [Apple]Romulo Quidute               | * Updated Section 7.1 to use the current standalone nRF Util executable instead of the deprecated pip-based nrfutil package, and to clarify RCP dongle flashing can be done from a separate Mac/PC.
 | 72          | 04-Sep-2026  | [Apple]Antonio Melo Jr.             | * Updated Container Logging Configuration section to document the `th_config.enable_container_logs` per-project override (issue #1091).
+| 73          | 10-Sep-2026  | [Google]Andrey Khodyrev             | * Added 'For CNET Tests' section with wpa_supplicant volume mapping instructions for the SDK docker container.
 |===
 
 <<<
